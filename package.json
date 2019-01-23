@@ -1,0 +1,31 @@
+{
+    "name": "node-red-contrib-hikvision",
+    "version": "1.0.0",
+    "description": "Hikvision API for Node Red",
+    "node-red": {
+        "nodes": {
+            "hikvision": "hikvision.js"
+        }
+    },
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/henry-spanka/node-red-contrib-hikvision.git"
+    },
+    "keywords": [
+        "hikvision",
+        "node-red"
+    ],
+    "author": "Henry Spanka",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/henry-spanka/node-red-contrib-hikvision/issues"
+    },
+    "homepage": "https://github.com/henry-spanka/node-red-contrib-hikvision#readme",
+    "dependencies": {
+        "node-hikvision-api": "nayrnet/node-hikvision-api#master",
+        "npm": "^5.7.1"
+    }
+}

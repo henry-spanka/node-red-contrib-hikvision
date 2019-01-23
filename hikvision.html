@@ -1,0 +1,131 @@
+<script type="text/javascript">
+    RED.nodes.registerType('hikvision-credentials', {
+        category: 'config',
+        color: '#a6bbcf',
+        defaults: {
+            screen_name: {
+                value: ""
+            }
+        },
+        credentials: {
+            host: {
+                type: "text"
+            },
+            port: {
+                type: "text"
+            },
+            username: {
+                type: "text"
+            },
+            password: {
+                type: "password"
+            }
+        },
+        exportable: false,
+        icon: "",
+        label: function() {
+            return this.screen_name || "hikvision-credentials";
+        }
+    });
+</script>
+
+<script type="text/x-red" data-template-name="hikvision-credentials">
+    <div class="form-row">
+        <label for="node-config-input-screen_name"><i class="icon-tag"></i> Name</label>
+        <input type="text" id="node-config-input-screen_name" placeholder="Name">
+    </div>
+    <div class="form-row">
+        <label for="node-config-input-host"><i class="icon-tag"></i> Host</label>
+        <input type="text" id="node-config-input-host" placeholder="cctv.example.org">
+    </div>
+    <div class="form-row">
+        <label for="node-config-input-port"><i class="icon-tag"></i> Port</label>
+        <input type="text" id="node-config-input-port" placeholder="80">
+    </div>
+    <div class="form-row">
+        <label for="node-config-input-username"><i class="icon-tag"></i> Username</label>
+        <input type="text" id="node-config-input-username" placeholder="admin">
+    </div>
+    <div class="form-row">
+        <label for="node-config-input-password"><i class="icon-tag"></i> Password</label>
+        <input type="password" id="node-config-input-password" placeholder="">
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="hikvision-credentials">
+    <p>Configure the credentials for the Hikvision IP Camera</p>
+</script>
+
+<script type="text/javascript">
+    RED.nodes.registerType('hikvision-alarm-in', {
+        category: 'hikvision',
+        color: '#a6bbcf',
+        defaults: {
+            name: {
+                value: ""
+            },
+            hikvision: {
+                type: "hikvision-credentials",
+                required: true
+            }
+        },
+        inputs: 0,
+        outputs: 1,
+        icon: "bridge.png",
+        label: function() {
+            return this.name || "hikvision-alarm-in";
+        }
+    });
+</script>
+
+<script type="text/x-red" data-template-name="hikvision-alarm-in">
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-hikvision"><i class="icon-tag"></i> Hikvision</label>
+        <input type="text" id="node-input-hikvision" placeholder="">
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="hikvision-alarm-in">
+    <p>Listens for Alarms sent by the IP Camera</p>
+</script>
+
+<script type="text/javascript">
+    RED.nodes.registerType('hikvision-profile-out', {
+        category: 'hikvision',
+        color: '#a6bbcf',
+        defaults: {
+            name: {
+                value: ""
+            },
+            hikvision: {
+                type: "hikvision-credentials",
+                required: true
+            }
+        },
+        inputs: 1,
+        outputs: 1,
+        icon: "light.png",
+        label: function() {
+            return this.name || "hikvision-profile-out";
+        }
+    });
+</script>
+
+<script type="text/x-red" data-template-name="hikvision-profile-out">
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-hikvision"><i class="icon-tag"></i> Hikvision</label>
+        <input type="text" id="node-input-hikvision" placeholder="">
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="hikvision-profile-out">
+    <p>Set the profile of a Hikvision IP Camera</p>
+</script>
