@@ -1,6 +1,7 @@
 module.exports = function(RED) {
     "use strict";
     var HikvisionAPI = require('node-hikvision-api');
+    var http = require('http');
 
     function HikvisionCredentialsNode(config) {
         RED.nodes.createNode(this, config);
@@ -105,6 +106,60 @@ module.exports = function(RED) {
     }
 
     RED.nodes.registerType("hikvision-alarm-in", HikvisionAlarmInNode);
+
+    function HikvisionImageInNode(config) {
+        RED.nodes.createNode(this, config);
+        var node = this;
+
+        this.hikvision = RED.nodes.getNode(config.hikvision);
+
+        this.http_options = {
+            host: this.hikvision.options.host,
+            port: this.hikvision.options.port,
+            path: '/Streaming/Channels/101/Picture',
+            headers: {
+                'Authorization': "Basic " + new Buffer(this.hikvision.options.user + ":" + this.hikvision.options.pass).toString('base64')
+            }
+        };
+
+        if (this.hikvision.options != null) {
+            this.on('input', function(msg) {
+                http.get(this.http_options, function(response) {
+                    var data = [];
+                    response.on('data', function(d) {
+                        data.push(d);
+                    });
+                    response.on('end', function() {
+                        if (response.statusCode != 200) {
+                            node.error("Invalid status code");
+                            node.status({
+                                fill: "red",
+                                shape: "ring",
+                                text: "communication error"
+                            });
+                        } else {
+                            msg.payload = Buffer.concat(data);
+                            node.send(msg);
+                            node.status({
+                                fill: "green",
+                                shape: "ring",
+                                text: "successful"
+                            });
+                        }
+                    });
+                });
+            });
+        } else {
+            node.error("Invalid credentials");
+            node.status({
+                fill: "red",
+                shape: "ring",
+                text: "conf invalid"
+            });
+        }
+    }
+
+    RED.nodes.registerType("hikvision-image-in", HikvisionImageInNode);
 
     function HikvisionProfileOutNode(config) {
         RED.nodes.createNode(this, config);

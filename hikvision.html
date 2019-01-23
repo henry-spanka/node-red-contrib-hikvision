@@ -94,6 +94,44 @@
 </script>
 
 <script type="text/javascript">
+    RED.nodes.registerType('hikvision-image-in', {
+        category: 'hikvision',
+        color: '#a6bbcf',
+        defaults: {
+            name: {
+                value: ""
+            },
+            hikvision: {
+                type: "hikvision-credentials",
+                required: true
+            }
+        },
+        inputs: 1,
+        outputs: 1,
+        icon: "arrow-in.png",
+        label: function() {
+            return this.name || "hikvision-image-in";
+        }
+    });
+</script>
+
+<script type="text/x-red" data-template-name="hikvision-image-in">
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-hikvision"><i class="icon-tag"></i> Hikvision</label>
+        <input type="text" id="node-input-hikvision" placeholder="">
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="hikvision-image-in">
+    <p>Get an image from the camera</p>
+</script>
+
+
+<script type="text/javascript">
     RED.nodes.registerType('hikvision-profile-out', {
         category: 'hikvision',
         color: '#a6bbcf',
