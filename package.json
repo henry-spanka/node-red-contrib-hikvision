@@ -1,6 +1,6 @@
 {
     "name": "node-red-contrib-hikvision",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "description": "Hikvision API for Node Red",
     "node-red": {
         "nodes": {
@@ -25,7 +25,7 @@
     },
     "homepage": "https://github.com/henry-spanka/node-red-contrib-hikvision#readme",
     "dependencies": {
-        "node-hikvision-api": "nayrnet/node-hikvision-api#master",
+        "node-hikvision-api": "marchaos/node-hikvision-api#master",
         "npm": "^5.7.1"
     }
 }
