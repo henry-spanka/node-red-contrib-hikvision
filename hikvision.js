@@ -28,7 +28,7 @@ module.exports = function(RED) {
         });
 
         if (this.options != null) {
-            hikApi = new HikvisionAPI.hikvision(this.options);
+            hikApi = new HikvisionAPI(this.options);
             hikApi.on('error', function(err) {
                 node.error(err);
                 node.status({
