@@ -30,7 +30,7 @@ module.exports = function(RED) {
         if (this.options != null) {
             hikApi = new HikvisionAPI(this.options);
             hikApi.on('error', function(err) {
-                node.error(err, msg);
+                node.error(err);
                 node.status({
                     fill: "red",
                     shape: "ring",
@@ -43,6 +43,24 @@ module.exports = function(RED) {
                     fill: "green",
                     shape: "ring",
                     text: "connected"
+                });
+            });
+
+            hikApi.on('error', (err) => {
+                node.error(err);
+                node.status({
+                    fill: "red",
+                    shape: "ring",
+                    text: "connection error"
+                });
+            });
+
+            hikApi.on('end', (err) => {
+                node.error(err);
+                node.status({
+                    fill: "red",
+                    shape: "ring",
+                    text: "disconnected"
                 });
             });
 
@@ -91,7 +109,7 @@ module.exports = function(RED) {
                 });
             });
         } else {
-            node.error("Invalid credentials", msg);
+            node.error("Invalid credentials");
             node.status({
                 fill: "red",
                 shape: "ring",
@@ -150,7 +168,7 @@ module.exports = function(RED) {
                 });
             });
         } else {
-            node.error("Invalid credentials", msg);
+            node.error("Invalid credentials");
             node.status({
                 fill: "red",
                 shape: "ring",
@@ -183,7 +201,7 @@ module.exports = function(RED) {
                 node.send(msg);
             });
         } else {
-            node.error("Invalid credentials", msg);
+            node.error("Invalid credentials");
             node.status({
                 fill: "red",
                 shape: "ring",
