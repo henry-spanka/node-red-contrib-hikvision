@@ -30,7 +30,7 @@ module.exports = function(RED) {
         if (this.options != null) {
             hikApi = new HikvisionAPI(this.options);
             hikApi.on('error', function(err) {
-                node.error(err);
+                node.error(err, msg);
                 node.status({
                     fill: "red",
                     shape: "ring",
@@ -91,7 +91,7 @@ module.exports = function(RED) {
                 });
             });
         } else {
-            node.error("Invalid credentials");
+            node.error("Invalid credentials", msg);
             node.status({
                 fill: "red",
                 shape: "ring",
@@ -131,7 +131,7 @@ module.exports = function(RED) {
                     });
                     response.on('end', function() {
                         if (response.statusCode != 200) {
-                            node.error("Invalid status code");
+                            node.error("Invalid status code", msg);
                             node.status({
                                 fill: "red",
                                 shape: "ring",
@@ -150,7 +150,7 @@ module.exports = function(RED) {
                 });
             });
         } else {
-            node.error("Invalid credentials");
+            node.error("Invalid credentials", msg);
             node.status({
                 fill: "red",
                 shape: "ring",
@@ -176,14 +176,14 @@ module.exports = function(RED) {
                 } else if (msg.payload.profile == 'night') {
                     this.hikApi.nightProfile();
                 } else {
-                    node.error("Invalid profile");
+                    node.error("Invalid profile", msg);
                     return null;
                 }
 
                 node.send(msg);
             });
         } else {
-            node.error("Invalid credentials");
+            node.error("Invalid credentials", msg);
             node.status({
                 fill: "red",
                 shape: "ring",
