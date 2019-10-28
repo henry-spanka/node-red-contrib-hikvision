@@ -15,6 +15,15 @@ module.exports = function(RED) {
             log: false,
         };
 
+        if (options.user === undefined || options.user == '') {
+            options.user = 'admin';
+        }
+
+        // Default to port 80 if not set.
+        if (options.port === undefined || options.port == '' || options.port == 0) {
+            options.port = '80';
+        }
+
         this.options = options;
     }
 
