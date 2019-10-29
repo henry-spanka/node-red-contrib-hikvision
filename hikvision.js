@@ -38,14 +38,6 @@ module.exports = function(RED) {
 
         if (this.options != null) {
             hikApi = new HikvisionAPI(this.options);
-            hikApi.on('error', function(err) {
-                node.error(err);
-                node.status({
-                    fill: "red",
-                    shape: "ring",
-                    text: "disconnected"
-                });
-            });
 
             hikApi.on('connect', function(err) {
                 node.status({
@@ -56,7 +48,12 @@ module.exports = function(RED) {
             });
 
             hikApi.on('error', (err) => {
-                node.error(err);
+                if (error) {
+                    node.error(err);
+                } else {
+                    node.error("Unknown error occurred!");
+                }
+
                 node.status({
                     fill: "red",
                     shape: "ring",
@@ -64,8 +61,8 @@ module.exports = function(RED) {
                 });
             });
 
-            hikApi.on('end', (err) => {
-                node.error(err);
+            hikApi.on('end', () => {
+                node.error("Connection closed!");
                 node.status({
                     fill: "red",
                     shape: "ring",
