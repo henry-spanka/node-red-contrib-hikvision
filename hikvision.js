@@ -79,7 +79,7 @@ module.exports = function(RED) {
                 setTimeout(() => {
                     node.warn("Attempting to reconnect!");
                     this.hikApi.connect();
-                }, 1000 * (this.errorCounter^2 - 1));
+                }, 1000 * (2^this.errorCounter - 1));
             });
 
         }
