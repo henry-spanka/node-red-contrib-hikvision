@@ -73,12 +73,13 @@ module.exports = function(RED) {
                     text: "disconnected"
                 });
 
+                this.errorCounter++;
+
                 // Squared backoff during reconnect.
                 setTimeout(() => {
                     node.warn("Attempting to reconnect!");
-                    this.errorCounter++;
                     this.hikApi.connect();
-                }, 10000 * (this.errorCounter^2 - 1));
+                }, 1000 * (this.errorCounter^2 - 1));
             });
 
         }
