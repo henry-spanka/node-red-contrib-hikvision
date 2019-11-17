@@ -160,7 +160,13 @@ module.exports = function(RED) {
 
         if (this.hikvision.options != null) {
             this.on('input', function(msg) {
-                http.get(this.http_options, function(response) {
+                let http_options = this.http_options;
+
+                if ("snapshotPath" in msg) {
+                    http_options['path'] = msg['snapshotPath'];
+                }
+
+                http.get(http_options, function(response) {
                     var data = [];
                     response.on('data', function(d) {
                         data.push(d);
