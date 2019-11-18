@@ -52,7 +52,7 @@ module.exports = function(RED) {
             });
 
             hikApi.on('error', (err) => {
-                if (error) {
+                if (err) {
                     node.error(err);
                 } else {
                     node.error("Unknown error occurred!");
