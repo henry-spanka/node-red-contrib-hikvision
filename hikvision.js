@@ -25,8 +25,6 @@ module.exports = function(RED) {
         }
 
         this.options = options;
-
-        this.errorCounter = 0;
     }
 
     HikvisionCredentialsNode.prototype.connect = function(node) {
@@ -47,8 +45,6 @@ module.exports = function(RED) {
                     shape: "ring",
                     text: "connected"
                 });
-
-                this.errorCounter = 0;
             });
 
             hikApi.on('error', (err) => {
@@ -72,14 +68,6 @@ module.exports = function(RED) {
                     shape: "ring",
                     text: "disconnected"
                 });
-
-                this.errorCounter++;
-
-                // Squared backoff during reconnect.
-                setTimeout(() => {
-                    node.warn("Attempting to reconnect!");
-                    hikApi.connect();
-                }, 1000 * (2^this.errorCounter - 1));
             });
 
         }
