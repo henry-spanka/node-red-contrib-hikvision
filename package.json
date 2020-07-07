@@ -26,6 +26,6 @@
     "homepage": "https://github.com/henry-spanka/node-red-contrib-hikvision#readme",
     "dependencies": {
         "node-hikvision-api": "henry-spanka/node-hikvision-api#master",
-        "npm": "^5.7.1"
+        "npm": "^6.14.6"
     }
 }
